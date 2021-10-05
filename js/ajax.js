@@ -51,13 +51,21 @@ function register() {
             var response = ajax.responseText;
 
             if (response == "email_invalido") {
-                M.toast({ html: "El email enviado no es valido" });
+                M.toast({ html: "El email enviado no es válido" });
+            } else if (response == "email_invalido") {
+                M.toast({ html: "El email enviado no es válido" });
+            } else if (response == "user_name_invalido") {
+                M.toast({ html: "El usuario enviado no es válido" });
+            } else if (response == "password_invalido") {
+                M.toast({ html: "La contraseña enviada no es válida" });
+            } else if (response == "campos vacios") {
+                M.toast({ html: "Algunos de los campos envíados están vacios" });
             }
         }
     };
     ajax.open(method, URL, true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send(
-        "user_name=" + rg_username + "& email=" + rg_email + "& password" + rg_pass1
+        "user_name=" + rg_username + "& email=" + rg_email + "& password=" + rg_pass1
     );
 }
