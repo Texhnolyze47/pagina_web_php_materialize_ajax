@@ -8,7 +8,7 @@ function register() {
     var rg_pass2 = document.querySelector("#rg_pass2").value;
 
     email_exprecion = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-    exprecion = /^[0-9a-zA-Z0-9]+$/;
+    exprecion = /^[a-zA-Z0-9]+$/;
 
     if (rg_username == "") {
         M.toast({ html: "El campo usuario no puede estar vacio" });
@@ -44,11 +44,16 @@ function register() {
     }
 
     var ajax = new XMLHttpRequest();
+    var URL = "ajax/users.ajax.php";
+    var method = "post";
     ajax.onreadystatechange = function () {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var response = ajax.responseText;
         }
     };
     ajax.open(method, URL, true);
-    ajax.setRequestHeader("Contend-type", "application");
+    ajax.setRequestHeader("Contend-type", "application/x-www-form-urlencoded");
+    ajax.send(
+        "user_name=" + rg_username + "&user_email=" + rg_email + "&password" + rg_pass1
+    );
 }
