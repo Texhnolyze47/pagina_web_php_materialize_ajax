@@ -1,4 +1,6 @@
 <?php
+//incluimos la conexion a la base de datos.
+require_once '../db_conexion.php';
 
 if (isset($_POST['user_name']) && isset($_POST['email'])) {
 
