@@ -2,14 +2,15 @@
  *  validacion formulario de registro
  * */
 function register() {
+    //se extraen los datos del php y se guardan en varaibles
     var rg_username = document.querySelector("#rg_username").value;
     var rg_email = document.querySelector("#rg_email").value;
     var rg_pass1 = document.querySelector("#rg_pass1").value;
     var rg_pass2 = document.querySelector("#rg_pass2").value;
-
+    //expresion regulares para los campos del formulario
     email_exprecion = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
     exprecion = /^[a-zA-Z0-9]+$/;
-
+    //comprobaciones de se introduccieron los datos de forma correcta
     if (rg_username == "") {
         M.toast({ html: "El campo usuario no puede estar vacio" });
     } else if (!exprecion.exec(rg_username)) {
@@ -46,6 +47,7 @@ function register() {
     var ajax = new XMLHttpRequest();
     var URL = "ajax/users.ajax.php";
     var method = "POST";
+
     ajax.onreadystatechange = function () {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var response = ajax.responseText;
@@ -60,9 +62,28 @@ function register() {
                 M.toast({ html: "La contraseña enviada no es válida" });
             } else if (response == "campos vacios") {
                 M.toast({ html: "Algunos de los campos envíados están vacios" });
+            } else if (response == "ok") {
+                //se manda un aviso de que realizo el regsitro con exito
+                M.toast({
+                    html:
+                        "Su resgistro se realizo correctamente, por favor verifique su cuenta ," +
+                        rg_email +
+                        ",para ingresar",
+                });
+                //se limpian los datos del formulario
+                document.getElementById("form_r").reset();
+            } else if (response == "user_existe") {
+                M.toast({
+                    html: "El usuario ya se encuentra registrado, intente con uno diferente",
+                });
+            } else if (response == "email_existe") {
+                M.toast({
+                    html: "El email ya se encuentra registrado, intente con uno diferente",
+                });
             }
         }
     };
+
     ajax.open(method, URL, true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send(

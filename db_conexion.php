@@ -7,4 +7,4 @@ if ($conn->connect_errno) {
 }
 
 
-
+require 'ajax/functions.php';

@@ -24,26 +24,48 @@ if (isset($_POST['user_name']) && isset($_POST['email'])) {
         $picture = '';
         $banner = '';
         //0 es para indicar que la cuenta va estar desactivada
-        $status = 0 ;
+        $status = 0;
         $token = md5($_POST['email']);
+        //sprinf regresa un string formateado
 
-        //prepara una nueva insercion al sql
-        $stmt = $conn->prepare("INSERT INTO users(user_name, email, password, description, picture,  banner , status, token) VALUES(?,?,?,?,?,?,?,?)");
-        
-        /* ligar parámetros para marcadores */
-        $stmt->bind_param("ssssssis", $user, $email, $password, $description, $picture, $banner, $status, $token);
+        /*Es es bloque se encarga de que el usuario y correo no puede repetir en la base de datos */
+        $consulta = sprintf("SELECT * FROM `users` WHERE user_name = %s", limpiar($user, "text"));
+        $result = mysqli_query($conn, $consulta);
+        $row_cnt = mysqli_num_rows($result);
 
-        /* ejecutar la consulta */
-        
-        if ($stmt->execute()){
-            echo 'ok';
-        }else{
-            echo'error';
+        if ($row_cnt == 0) {
+
+            $consulta_e = sprintf("SELECT * FROM `users` WHERE email = %s", limpiar($email, "text"));
+            $result_e = mysqli_query($conn, $consulta_e);
+            $row_cnt_e = mysqli_num_rows($result_e);
+
+            if($row_cnt_e == 0){
+                
+            //prepara una nueva insercion al sql
+            $stmt = $conn->prepare("INSERT INTO users(user_name, email, password, description, picture,  banner , status, token) VALUES(?,?,?,?,?,?,?,?)");
+
+            /* ligar parámetros para marcadores */
+            $stmt->bind_param("ssssssis", $user, $email, $password, $description, $picture, $banner, $status, $token);
+
+            /* ejecutar la consulta */
+
+            if ($stmt->execute()) {
+                echo 'ok';
+            } else {
+                echo 'error';
+            }
+            //cerrar sentencia
+            $stmt->close();
+            }else {
+                echo 'email_existe';
+            }
+            mysqli_free_result($result_e);
+        } else {
+            echo "user_existe";
         }
-        //cerrar sentencia
-        $stmt->close();
 
+        mysqli_free_result($result);
     } else {
-        echo 'campos vacios';
+        echo 'campos_vacios';
     }
 }

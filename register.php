@@ -69,7 +69,7 @@
 			<div class="container">
 				<div class="container-form">
 					<div class="card">
-						<form onsubmit="return false">
+						<form onsubmit="return false" id="form_r">
 							<div class="row">
 								<div class="input-field col s12">
 									<i class="material-icons prefix">account_circle</i>
