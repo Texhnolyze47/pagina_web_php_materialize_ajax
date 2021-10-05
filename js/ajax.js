@@ -45,15 +45,19 @@ function register() {
 
     var ajax = new XMLHttpRequest();
     var URL = "ajax/users.ajax.php";
-    var method = "post";
+    var method = "POST";
     ajax.onreadystatechange = function () {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var response = ajax.responseText;
+
+            if (response == "email_invalido") {
+                M.toast({ html: "El email enviado no es valido" });
+            }
         }
     };
     ajax.open(method, URL, true);
-    ajax.setRequestHeader("Contend-type", "application/x-www-form-urlencoded");
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send(
-        "user_name=" + rg_username + "&user_email=" + rg_email + "&password" + rg_pass1
+        "user_name=" + rg_username + "& email=" + rg_email + "& password" + rg_pass1
     );
 }
