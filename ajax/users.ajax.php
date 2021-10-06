@@ -5,7 +5,7 @@ require_once '../db_conexion.php';
 if (isset($_POST['user_name']) && isset($_POST['email'])) {
 
     if ($_POST['email'] !== '' && $_POST['user_name']  !== '' && $_POST['password'] !== '') {
-
+        //comproba si las caracteres utilizados en email, username o passowrd no son validos
         if (!preg_match('/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/', $_POST['email'])) {
             echo  'email_invalido';
             exit();
@@ -19,7 +19,7 @@ if (isset($_POST['user_name']) && isset($_POST['email'])) {
         //creamos variables el registro del usuario
         $email = $_POST['email'];
         $user =  $_POST['user_name'];
-        $password =  $_POST['password'];
+        $password =  md5($_POST['password']); //md5 se para encriptar datos
         $description = '';
         $picture = '';
         $banner = '';
@@ -39,24 +39,41 @@ if (isset($_POST['user_name']) && isset($_POST['email'])) {
             $result_e = mysqli_query($conn, $consulta_e);
             $row_cnt_e = mysqli_num_rows($result_e);
 
-            if($row_cnt_e == 0){
-                
-            //prepara una nueva insercion al sql
-            $stmt = $conn->prepare("INSERT INTO users(user_name, email, password, description, picture,  banner , status, token) VALUES(?,?,?,?,?,?,?,?)");
+            if ($row_cnt_e == 0) {
 
-            /* ligar parámetros para marcadores */
-            $stmt->bind_param("ssssssis", $user, $email, $password, $description, $picture, $banner, $status, $token);
+                //prepara una nueva insercion al sql
+                $stmt = $conn->prepare("INSERT INTO users(user_name, email, password, description, picture,  banner , status, token) VALUES(?,?,?,?,?,?,?,?)");
 
-            /* ejecutar la consulta */
+                /* ligar parámetros para marcadores */
+                $stmt->bind_param("ssssssis", $user, $email, $password, $description, $picture, $banner, $status, $token);
 
-            if ($stmt->execute()) {
-                echo 'ok';
+                /* ejecutar la consulta */
+
+                if ($stmt->execute()) {
+                    //envio de email confirmacion
+                    $para = $email;
+                    $titulo = "Verifique su correo eletronico";
+                    $mensaje = "Utilice este enlace" . url . "verificar.php?verifica=".$token. "Para verficar su cuenta";
+
+
+                    // Para enviar un correo HTML, debe establecerse la cabecera Content-type
+                    $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+                    $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+                    // Cabeceras adicionales
+                    $cabeceras .= 'From: Sistema de usuarios <acnologiadust007@gmail.com>' . "\r\n";
+
+                    // Enviarlo
+                    mail($para, $titulo, $mensaje, $cabeceras);
+
+
+                    echo 'ok';
+                } else {
+                    echo 'error';
+                }
+                //cerrar sentencia
+                $stmt->close();
             } else {
-                echo 'error';
-            }
-            //cerrar sentencia
-            $stmt->close();
-            }else {
                 echo 'email_existe';
             }
             mysqli_free_result($result_e);

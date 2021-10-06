@@ -27,3 +27,5 @@ function limpiar($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue
     }
     return $theValue;
 }
+
+define('url', 'http://localhost/sistema-usuarios/');
