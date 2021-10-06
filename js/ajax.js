@@ -13,35 +13,38 @@ function register() {
     //comprobaciones de se introduccieron los datos de forma correcta
     if (rg_username == "") {
         M.toast({ html: "El campo usuario no puede estar vacio" });
+        /*estos return son para evitar que se llamen a todas las alertas
+        y que no se envien el ajax.js al servidor a menos que esten todos
+        los campos llenos */
+        return;
     } else if (!exprecion.exec(rg_username)) {
         M.toast({
             html: "En el campo de usuario, no se permiten carácteres especiales ni  espacios",
         });
+        return;
     }
 
     if (rg_email == "") {
         M.toast({ html: "El campo email no puede estar vacio" });
+        return;
     } else if (!email_exprecion.exec(rg_email)) {
         M.toast({ html: "Por favor introduce un email válido" });
+        return;
     }
 
-    if (rg_pass1 == "") {
+    if (rg_pass1 == "" || rg_pass2 == "") {
         M.toast({ html: "El campo contraseña no puede estar vacio" });
-    } else if (!exprecion.exec(rg_pass1)) {
+        return;
+    } else if (!exprecion.exec(rg_pass1) || !exprecion.exec(rg_pass2)) {
         M.toast({
             html: "En el campo de contraseña, no se permiten carácteres especiales ni  espacios",
         });
-    }
-    if (rg_pass2 == "") {
-        M.toast({ html: "El campo confirmar contraseña no puede estar vacio" });
-    } else if (!exprecion.exec(rg_pass2)) {
-        M.toast({
-            html: "En el campo de contraseña, no se permiten carácteres especiales ni  espacios",
-        });
+        return;
     }
 
     if (rg_pass1 !== rg_pass2) {
         M.toast({ html: "Las contraseñas no coinciden " });
+        return;
     }
 
     var ajax = new XMLHttpRequest();
