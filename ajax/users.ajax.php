@@ -86,3 +86,26 @@ if (isset($_POST['user_name']) && isset($_POST['email'])) {
         echo 'campos_vacios';
     }
 }
+
+// 
+// Validando datos login
+// 
+
+if (isset($_POST['fr_login']) & isset($_POST['user_name']) && isset($_POST['password'])) {
+
+    if ($_POST['user_name']  !== '' && $_POST['password'] !== '') {
+
+        if (!preg_match('/^[a-zA-Z0-9\\@\\.\\_]+$/', $_POST['user_name'])) {
+            echo 'user_name_invalido';
+            exit();
+        } else if (!preg_match('/^[a-zA-Z0-9]+$/', $_POST['password'])) {
+            echo 'password_invalido';
+            exit();
+        }
+        //creamos variables el registro del usuario
+        $user =  $_POST['user_name'];
+        $password =  md5($_POST['password']); //md5 se para encriptar datos
+    } else {
+        echo 'campos_vacios';
+    }
+}

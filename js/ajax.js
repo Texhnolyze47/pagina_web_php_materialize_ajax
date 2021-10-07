@@ -97,13 +97,14 @@ function register() {
 /**
  *  validacion formulario de login
  * */
-
-document.querySelector("login_ajax").addEventListener("click", function () {
+// Esta otro forma usar el evento click
+document.querySelector('.login_ajax').addEventListener('click', function () {
     //se extraen los datos del php y se guardan en varaibles
     var lg_username = document.querySelector("#lg_username").value;
     var lg_password = document.querySelector("#lg_password").value;
+    var fr_login = "ok";
     //expresion regulares para los campos del formulario
-    exprecion = /^[a-zA-Z0-9@._]+$/;
+    exprecion = /^[a-zA-Z0-9\\@\\.\\_]+$/;
     //comprobaciones de se introduccieron los datos de forma correcta
     if (lg_username == "") {
         M.toast({ html: "El campo usuario no puede estar vacio" });
@@ -170,5 +171,5 @@ document.querySelector("login_ajax").addEventListener("click", function () {
 
     ajax.open(method, URL, true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    ajax.send("user_name=" + lg_username + "& password=" + lg_password);
+    ajax.send("user_name=" + lg_username + "& password=" + lg_password + "& fr_login=" + fr_login);
 });

@@ -16,14 +16,14 @@ include('header.php');
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">account_circle</i>
                                 <input type="text" id="lg_username" class="validate">
-                                <label for="lg_username">Ingresa tu Usuario o Email</label>
+                                <label for="username">Ingresa tu Usuario o Email</label>
                             </div>
                             <!--End col -->
 
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">password</i>
-                                <input type="password" id="password" class="validate">
-                                <label for="lg_password">Contraseña</label>
+                                <input type="password" id="lg_password" class="validate">
+                                <label for="password">Contraseña</label>
                             </div>
                             <!--End col -->
                             <div class="col s12">
