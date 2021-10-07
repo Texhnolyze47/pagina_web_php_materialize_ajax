@@ -14,7 +14,7 @@
 				<p>
 					No estas registrado aunque, que esperas para ingresar y disfrutar
 				</p>
-				<a href="register.php" class="waves-effect waves-light  btn grey">Registro</a>
+				<a href="registro" class="waves-effect waves-light  btn grey">Registro</a>
 			</div>
 
 		</div>

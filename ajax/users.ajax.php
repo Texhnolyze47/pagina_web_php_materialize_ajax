@@ -105,6 +105,30 @@ if (isset($_POST['fr_login']) & isset($_POST['user_name']) && isset($_POST['pass
         //creamos variables el registro del usuario
         $user =  $_POST['user_name'];
         $password =  md5($_POST['password']); //md5 se para encriptar datos
+
+
+        //se pregunta a la base de datos por los usuarios
+        $consulta = sprintf("SELECT * FROM `users` WHERE user_name = %s AND password = %s AND status > 0", 
+        limpiar($user, "text"), 
+        limpiar($password, "text"));
+        
+        $result = mysqli_query($conn, $consulta);
+        $fech = mysqli_fetch_assoc($result);
+        $row_cnt = mysqli_num_rows($result);
+        //si la cuenta esta activada se ejecuta el if
+        if($row_cnt == 1){
+
+            $_SESSION['id'] = $fech['id'];
+            $_SESSION['username'] = $fech['user_name'];
+            echo "ok";
+
+        }else{
+            echo "no_existe";
+        }
+
+        mysqli_free_result($result);
+
+
     } else {
         echo 'campos_vacios';
     }

@@ -137,35 +137,20 @@ document.querySelector('.login_ajax').addEventListener('click', function () {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var response = ajax.responseText;
 
-            if (response == "email_invalido") {
-                M.toast({ html: "El email enviado no es válido" });
-            } else if (response == "email_invalido") {
-                M.toast({ html: "El email enviado no es válido" });
-            } else if (response == "user_name_invalido") {
-                M.toast({ html: "El usuario enviado no es válido" });
+            if (response == "user_name_invalido") {
+                M.toast({ html: "El usuario o email enviado no es válido" });
             } else if (response == "password_invalido") {
                 M.toast({ html: "La contraseña enviada no es válida" });
             } else if (response == "campos vacios") {
                 M.toast({ html: "Algunos de los campos envíados están vacios" });
             } else if (response == "ok") {
-                //se manda un aviso de que realizo el regsitro con exito
+                //si todo esta bien se redirige a perfil
+                window.location = "perfil";
+            } else if (response == "no_existe") {
                 M.toast({
-                    html:
-                        "Su resgistro se realizo correctamente, por favor verifique su cuenta ," +
-                        rg_email +
-                        ",para ingresar",
+                    html: "El usuario y/o contraseña incorrectos",
                 });
-                //se limpian los datos del formulario
-                document.getElementById("form_r").reset();
-            } else if (response == "user_existe") {
-                M.toast({
-                    html: "El usuario ya se encuentra registrado, intente con uno diferente",
-                });
-            } else if (response == "email_existe") {
-                M.toast({
-                    html: "El email ya se encuentra registrado, intente con uno diferente",
-                });
-            }
+            } 
         }
     };
 

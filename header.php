@@ -48,7 +48,7 @@
 					<a href="#" data-target="nav-movil" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
 						<li><a href="<?php echo url; ?>articulos">Articulos</a></li>
-						<li><a href="<?php echo url; ?>register" class="waves-effectwaves-light  btn grey">Registro</a></li>
+						<li><a href="<?php echo url; ?>registro" class="waves-effectwaves-light btn grey">Registro</a></li>
 					</ul>
 				</div>
 			</div>
@@ -57,6 +57,6 @@
 
 		<ul class="sidenav" id="nav-mobil">
 			<li><a href="<?php echo url; ?>articulos">Articulos</a></li>
-			<li><a href="<?php echo url; ?>register" class="btn grey">Registro</a></li>
+			<li><a href="<?php echo url; ?>registro" class="btn grey">Registro</a></li>
 		</ul>
 	</header>
