@@ -115,9 +115,8 @@ if (isset($_POST['fr_login']) & isset($_POST['user_name']) && isset($_POST['pass
         $result = mysqli_query($conn, $consulta);
         $fech = mysqli_fetch_assoc($result);
         $row_cnt = mysqli_num_rows($result);
-        //si la cuenta esta activada se ejecuta el if
+        
         if($row_cnt == 1){
-
             $_SESSION['id'] = $fech['id'];
             $_SESSION['username'] = $fech['user_name'];
             echo "ok";

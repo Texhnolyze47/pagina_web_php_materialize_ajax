@@ -1,5 +1,5 @@
 <!-- faltaba la llamada a functions para poder funcionar  -->
-<?php include'ajax/functions.php'?>
+<?php require_once 'db_conexion.php'?>
 <!DOCTYPE html>
 <html lang="en">
 

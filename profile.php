@@ -1,4 +1,13 @@
 <?php include('header.php');
+
+$iduser = $_SESSION['id'];
+$consulta = sprintf(
+    "SELECT * FROM users WHERE id = %s",
+    limpiar($iduser, "int")
+);
+$result = mysqli_query($conn, $consulta);
+$fech = mysqli_fetch_assoc($result);
+
 ?>
 <!--=====================================
 	profile
@@ -7,16 +16,25 @@
 <main role="main" class="user-profile">
     <div class="parallax-container profile">
         <div class="parallax">
-            <img src="images/hero.jpg">
-
+            <?php
+            if ($fech['banner'] == '') : ?>
+                <img src="images/hero.jpg" >
+            <?php else : ?>
+                <img src="<?php echo url . 'images/banners/' . $fech['picture']; ?>images/persona.jpg" width="100" class="circle responsive-img">
+            <?php endif ?>
         </div>
 
         <div class="content-parallax center">
             <figure>
-                <img src="images/persona.jpg" width="100" class="circle responsive-img">
+                <?php
+                if ($fech['picture'] == '') : ?>
+                    <img src="images/persona.jpg" width="100" class="circle responsive-img">
+                <?php else : ?>
+                    <img src="<?php echo url . 'images/users/' . $fech['picture']; ?>images/persona.jpg" width="100" class="circle responsive-img">
+                <?php endif ?>
             </figure>
             <h2 class="name-user">
-                John Doe
+                <?php echo $fech['user_name']; ?>
             </h2>
         </div>
     </div>
@@ -26,7 +44,8 @@
         <article class="center">
             <h3>Sobre mi</h3>
             <figcaption>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni excepturi sit aliquid sequi dolore at rerum soluta molestias ducimus harum! Quibusdam quis pariatur molestiae reiciendis fugit placeat qui eveniet asperiores.
+                <?php echo $fech['description']; ?>
+
             </figcaption>
         </article>
 
@@ -136,5 +155,6 @@
     </div>
 </main>
 <<?php
-    include("footer.php");
+    include('footer.php');
+    mysqli_free_result($result);
     ?>

@@ -1,4 +1,7 @@
 <?php
+
+if (!isset($_SESSION)) @session_start();
+
 //cambiar la contraseña qeu tiene por defecto el plugin auth_socket poer la contraseñá elegida
 $conn = new mysqli("localhost", "root", "admin", "sistema_usuarios", 3306);
 if ($conn->connect_errno) {
