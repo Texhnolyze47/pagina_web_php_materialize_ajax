@@ -1,3 +1,5 @@
+<!-- faltaba la llamada a functions para poder funcionar  -->
+<?php include'ajax/functions.php'?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +11,7 @@
 	<meta name="apple-mobbile-web-app-capable" content="yes">
 	<meta name="apple-mobbile-web-app-title" content="">
 
-	<link rel="icon" href="images/logo.png">
+	<link rel="icon" href="<?php echo url; ?>images/logo.png">
 
 	<!--=====================================
 	Marcado HTML5
@@ -22,14 +24,14 @@
 	CSS STYLES
 	=====================================-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/materialize.min.css">
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="<?php echo url; ?>css/normalize.css"> <!-- se agrega php para que la pagina verificar pueda encontrar los archivos css -->
+	<link rel="stylesheet" href="<?php echo url; ?>css/materialize.min.css">
+	<link rel="stylesheet" href="<?php echo url; ?>css/main.css">
 
 	<!--=====================================
 	JAVASCRIPT SCRIPTS
 	======================================-->
-	<script src="js/materialize.min.js"></script>
+	<script src="<?php echo url; ?>js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -40,14 +42,13 @@
 		<nav class="blue-grey darken-1">
 			<div class="container">
 				<div class="nav-wrapper">
-					<a href="#!" class="brand-logo left">
-						<img src="images/logo.png" width="40" />
+					<a href="inicio" class="brand-logo left">
+						<img src="<?php echo url; ?>images/logo.png" width="40" />
 					</a>
 					<a href="#" data-target="nav-movil" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
-						<li><a href="articles.php">Articulos</a></li>
-						<li><a href="articles.php">Contactos</a></li>
-						<li><a href="register.php" class="waves-effectwaves-light  btn grey">Registro</a></li>
+						<li><a href="<?php echo url; ?>articulos">Articulos</a></li>
+						<li><a href="<?php echo url; ?>register" class="waves-effectwaves-light  btn grey">Registro</a></li>
 					</ul>
 				</div>
 			</div>
@@ -55,7 +56,7 @@
 		</nav>
 
 		<ul class="sidenav" id="nav-mobil">
-			<li><a href="articles.php">Articulos</a></li>
-			<li><a href="register.php" class="btn grey">Registro</a></li>
+			<li><a href="<?php echo url; ?>articulos">Articulos</a></li>
+			<li><a href="<?php echo url; ?>register" class="btn grey">Registro</a></li>
 		</ul>
 	</header>

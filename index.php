@@ -12,7 +12,7 @@
 					Bienvenidos al sistema usuarios
 				</h2>
 				<p>
-					No estar registrado aunque esperas para ingresar y disfrutar
+					No estas registrado aunque, que esperas para ingresar y disfrutar
 				</p>
 				<a href="register.php" class="waves-effect waves-light  btn grey">Registro</a>
 			</div>

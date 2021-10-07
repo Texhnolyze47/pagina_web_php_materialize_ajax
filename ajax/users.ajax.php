@@ -53,7 +53,7 @@ if (isset($_POST['user_name']) && isset($_POST['email'])) {
                     //envio de email confirmacion
                     $para = $email;
                     $titulo = "Verifique su correo eletronico";
-                    $mensaje = "Utilice este enlace" . url . "verificar.php?verifica=" . $token . "Para verficar su cuenta";
+                    $mensaje = "Utilice este enlace" . url . "verificar/" . $token . "Para verficar su cuenta";
 
 
                     // Para enviar un correo HTML, debe establecerse la cabecera Content-type
