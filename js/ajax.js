@@ -93,3 +93,82 @@ function register() {
         "user_name=" + rg_username + "& email=" + rg_email + "& password=" + rg_pass1
     );
 }
+
+/**
+ *  validacion formulario de login
+ * */
+
+document.querySelector("login_ajax").addEventListener("click", function () {
+    //se extraen los datos del php y se guardan en varaibles
+    var lg_username = document.querySelector("#lg_username").value;
+    var lg_password = document.querySelector("#lg_password").value;
+    //expresion regulares para los campos del formulario
+    exprecion = /^[a-zA-Z0-9@._]+$/;
+    //comprobaciones de se introduccieron los datos de forma correcta
+    if (lg_username == "") {
+        M.toast({ html: "El campo usuario no puede estar vacio" });
+        /*estos return son para evitar que se llamen a todas las alertas
+        y que no se envien el ajax.js al servidor a menos que esten todos
+        los campos llenos */
+        return;
+    } else if (!exprecion.exec(lg_username)) {
+        M.toast({
+            html: "En el campo de usuario, no se permiten carácteres especiales ni espacios",
+        });
+        return;
+    }
+
+    if (lg_password == "") {
+        M.toast({ html: "El campo contraseña no puede estar vacio" });
+        return;
+    } else if (!exprecion.exec(lg_password)) {
+        M.toast({
+            html: "En el campo de contraseña, no se permiten carácteres especiales ni  espacios",
+        });
+        return;
+    }
+
+    var ajax = new XMLHttpRequest();
+    var URL = "ajax/users.ajax.php";
+    var method = "POST";
+
+    ajax.onreadystatechange = function () {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var response = ajax.responseText;
+
+            if (response == "email_invalido") {
+                M.toast({ html: "El email enviado no es válido" });
+            } else if (response == "email_invalido") {
+                M.toast({ html: "El email enviado no es válido" });
+            } else if (response == "user_name_invalido") {
+                M.toast({ html: "El usuario enviado no es válido" });
+            } else if (response == "password_invalido") {
+                M.toast({ html: "La contraseña enviada no es válida" });
+            } else if (response == "campos vacios") {
+                M.toast({ html: "Algunos de los campos envíados están vacios" });
+            } else if (response == "ok") {
+                //se manda un aviso de que realizo el regsitro con exito
+                M.toast({
+                    html:
+                        "Su resgistro se realizo correctamente, por favor verifique su cuenta ," +
+                        rg_email +
+                        ",para ingresar",
+                });
+                //se limpian los datos del formulario
+                document.getElementById("form_r").reset();
+            } else if (response == "user_existe") {
+                M.toast({
+                    html: "El usuario ya se encuentra registrado, intente con uno diferente",
+                });
+            } else if (response == "email_existe") {
+                M.toast({
+                    html: "El email ya se encuentra registrado, intente con uno diferente",
+                });
+            }
+        }
+    };
+
+    ajax.open(method, URL, true);
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    ajax.send("user_name=" + lg_username + "& password=" + lg_password);
+});

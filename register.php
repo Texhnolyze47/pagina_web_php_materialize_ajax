@@ -1,8 +1,6 @@
 <?php 
 	include('header.php');
 ?>
-
-
 	<!--=====================================
 	Hero
 	======================================-->
@@ -49,6 +47,13 @@
 									</div>
 								</div>
 							</div>
+							<!-- En caso de que ya este la cuenta en la base de datos -->
+							<div class="col s12">
+								<div class="center pt-2">
+									<a href="<?php echo url; ?>login" class="black-text" >Ya tengo una cuenta</a>
+								</div>
+							</div>
+
 							<!--End row -->
 						</form>
 					</div>
