@@ -108,8 +108,10 @@ if (isset($_POST['fr_login']) & isset($_POST['user_name']) && isset($_POST['pass
 
 
         //se pregunta a la base de datos por los usuarios
-        $consulta = sprintf("SELECT * FROM `users` WHERE user_name = %s AND password = %s AND status > 0", 
-        limpiar($user, "text"), 
+        $consulta = sprintf("SELECT * FROM `users` WHERE user_name = %s AND password = %s AND status > 0 OR email = %s AND password = %s AND status > 0", 
+        limpiar($user, "text"),
+        limpiar($password, "text"),
+        limpiar($user, "text"),
         limpiar($password, "text"));
         
         $result = mysqli_query($conn, $consulta);
@@ -117,6 +119,8 @@ if (isset($_POST['fr_login']) & isset($_POST['user_name']) && isset($_POST['pass
         $row_cnt = mysqli_num_rows($result);
         
         if($row_cnt == 1){
+
+            // session_start();
             $_SESSION['id'] = $fech['id'];
             $_SESSION['username'] = $fech['user_name'];
             echo "ok";

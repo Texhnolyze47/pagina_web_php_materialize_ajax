@@ -20,7 +20,7 @@ $fech = mysqli_fetch_assoc($result);
             if ($fech['banner'] == '') : ?>
                 <img src="images/hero.jpg" >
             <?php else : ?>
-                <img src="<?php echo url . 'images/banners/' . $fech['picture']; ?>images/persona.jpg" width="100" class="circle responsive-img">
+                <img src="<?php echo url . 'images/banners/' . $fech['banner']; ?> width="100" class="circle responsive-img">
             <?php endif ?>
         </div>
 

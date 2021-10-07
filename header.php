@@ -1,5 +1,5 @@
 <!-- faltaba la llamada a functions para poder funcionar  -->
-<?php require_once 'db_conexion.php'?>
+<?php require_once 'db_conexion.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,8 +47,29 @@
 					</a>
 					<a href="#" data-target="nav-movil" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
-						<li><a href="<?php echo url; ?>articulos">Articulos</a></li>
-						<li><a href="<?php echo url; ?>registro" class="waves-effectwaves-light btn grey">Registro</a></li>
+						<li>
+							<a href="<?php echo url; ?>articulos">Articulos</a>
+						</li>
+
+
+						<?php if (isset($_SESSION['id'])) : ?>
+							<li>
+								<a href="<?php echo url; ?>perfil" class="waves-effectwaves-light btn green"><?php echo $_SESSION['username']; ?></a>
+							</li>
+							<li>
+								<a href="<?php echo url; ?>salir" class="waves-effectwaves-light btn red">X</a>
+							</li>
+						<?php else : ?>
+							<li>
+								<a href="<?php echo url; ?>login">Ingresar</a>
+							</li>
+
+							<li>
+								<a href="<?php echo url; ?>registro" class="waves-effectwaves-light btn grey">Registro</a>
+							</li>
+
+
+						<?php endif ?>
 					</ul>
 				</div>
 			</div>
@@ -56,7 +77,23 @@
 		</nav>
 
 		<ul class="sidenav" id="nav-mobil">
+
 			<li><a href="<?php echo url; ?>articulos">Articulos</a></li>
-			<li><a href="<?php echo url; ?>registro" class="btn grey">Registro</a></li>
+			<?php if (isset($_SESSION['id'])) : ?>
+				<li>
+					<a href="<?php echo url; ?>perfil" class="waves-effectwaves-light btn green"><?php echo $_SESSION['username']; ?></a>
+				</li>
+				<li>
+					<a href="<?php echo url; ?>salir" class="waves-effectwaves-light btn red">X</a>
+				</li>
+			<?php else : ?>
+				<li>
+					<a href="<?php echo url; ?>login">Ingresar</a>
+				</li>
+
+				<li>
+					<a href="<?php echo url; ?>registro" class="waves-effectwaves-light btn grey">Registro</a>
+				</li>
+			<?php endif ?>
 		</ul>
 	</header>
