@@ -1,4 +1,8 @@
 <?php include('header.php');
+if (!isset($_SESSION['id']) && !isset($_SESSION['username']) ) {
+    header('Location:'.url);
+    exit();
+}
 
 $iduser = $_SESSION['id'];
 $consulta = sprintf(
