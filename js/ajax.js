@@ -165,6 +165,8 @@ function update_user() {
 
       if (response == "ok") {
         M.toast({ html: "Su perfil se actualizo correctamente" });
+        //esto que se recargue la pagina
+        window.location.reload();
       } else if (response == "email_invalido") {
         M.toast({ html: "El email enviado no es válido" });
       } else if (response == "user_name_invalido") {
