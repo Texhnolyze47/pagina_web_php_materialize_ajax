@@ -188,3 +188,42 @@ if (isset($_POST['up_username']) && isset($_POST['up_email']) && isset($_POST['d
         echo 'campos_vacios';
     }
 }
+
+
+// 
+// Subiendo imagen de perfil
+// 
+if(isset($_FILES['upPicture'])){
+    if ($_FILES['upPicture']['type'] == 'image/jpg' || $_FILES['upPicture']['type'] == 'image/png' || $_FILES['upPicture']['type'] == 'image/jpeg'){
+
+        //  var_dump($_FILES['upPicture']);
+
+        $iduser = trim(base64_decode($_POST['userid']));
+        $extent = explode("/", $_FILES['upPicture']['type']);
+         echo '<pre>'; print_r($extent); echo '</pre>';
+
+        $name = explode("/", $_FILES['upPicture']['name']);
+         echo '<pre>'; print_r($name); echo '</pre>';
+
+        $name_picture = base64_decode($_POST['userid']).".".$extent[1];
+
+        move_uploaded_file($_FILES['upPicture']['tmp_name'], '../images/users/' .$name_picture);
+
+        //consulta al servidor
+        $stmt = $conn->prepare("UPDATE users SET picture = ? WHERE id = ? ");
+        
+        $stmt->bind_param("si", $name_picture , $iduser);
+
+        if($stmt->execute()){
+            echo "/images/users/".$name_picture;
+        }else {
+            echo 'error';
+        }
+       
+        $stmt -> close();
+        
+
+    }else {
+        echo 'file_aceptado';
+    }
+}

@@ -31,7 +31,9 @@
 	<!--=====================================
 	JAVASCRIPT SCRIPTS
 	======================================-->
+	<script src="<?php echo url; ?>js/jquery-3.6.0.min.js"></script>
 	<script src="<?php echo url; ?>js/materialize.min.js"></script>
+
 </head>
 
 <body>

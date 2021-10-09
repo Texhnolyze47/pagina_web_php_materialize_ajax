@@ -165,7 +165,7 @@ function update_user() {
 
       if (response == "ok") {
         M.toast({ html: "Su perfil se actualizo correctamente" });
-        //esto que se recargue la pagina
+        //esto que se recargue la
         window.location.reload();
       } else if (response == "email_invalido") {
         M.toast({ html: "El email enviado no es válido" });
@@ -191,6 +191,28 @@ function update_user() {
       "& iduser=" + iduser
   );
 }
+
+/**
+ *  subiendo imagen de perfil
+ * */
+ function upload_picture() {
+   //en esta funcion se va agregar jquery
+   var frmP = new FormData ($('#frmPicture')[0])
+   $.ajax({
+     type: "POST",
+     url: "ajax/users.ajax.php",
+     data: frmP,
+     contentType: false,
+     processData: false,
+     success: function (response) {
+      M.toast({ html: "Foto actualizada" });
+       $('#frmPicture')[0].reset();
+       $('refreshp').attr('src', response);
+     }
+   });
+ 
+}
+
 
 /**
  *  validacion formulario de login

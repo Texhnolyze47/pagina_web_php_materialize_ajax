@@ -29,14 +29,22 @@ $fech = mysqli_fetch_assoc($result);
         </div>
 
         <div class="content-parallax center">
+            <a href="javascript:void(0)" onclick="$('#upPicture').click();" >
             <figure>
                 <?php
                 if ($fech['picture'] == '') : ?>
-                    <img src="images/persona.jpg" width="100" class="circle responsive-img">
+                    <img src="images/default_avatar.png" width="100" class="circle responsive-img" id="refreshp">
                 <?php else : ?>
-                    <img src="<?php echo url . 'images/users/' . $fech['picture']; ?>images/persona.jpg" width="100" class="circle responsive-img">
+                    <img src="<?php echo url . 'images/users/' . $fech['picture']; ?>" width="100" class="circle responsive-img" id="refreshp">
                 <?php endif ?>
             </figure>
+        </a>
+
+        <form onsubmit="return false"  id="frmPicture" style="display: none;">
+            <input type="file" id="upPicture" name="upPicture" onchange="upload_picture()">
+            <input type="hidden" name="userid" value="<?php echo base64_encode($fech['id']); ?>">
+    </form>
+           
             <h2 class="name-user">
                 <?php echo $fech['user_name']; ?>
             </h2>
