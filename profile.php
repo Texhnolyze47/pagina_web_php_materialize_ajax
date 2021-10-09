@@ -179,14 +179,14 @@ $fech = mysqli_fetch_assoc($result);
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input type="text" id="up_username" value="<?php echo $fech ['user_name']; ?>" class="validate">
+                        <input type="text" id="up_username" readonly value="<?php echo $fech ['user_name']; ?>" class="validate">
                         <label for="up_username">Usuario</label>
                     </div>
                     <!--End col -->
 
                     <div class="input-field col s12">
                         <i class="material-icons prefix">email</i>
-                        <input type="email" id="up_email"  value="<?php echo $fech ['email']; ?>" class="validate">
+                        <input type="email" id="up_email" readonly value="<?php echo $fech ['email']; ?>" class="validate">
                         <label for="up_email">Email</label>
                     </div>
                     <!--End col -->
