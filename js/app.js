@@ -24,8 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
     //Paralax
     var paralax_elemens = document.querySelectorAll(".parallax");
     var instances = M.Parallax.init(paralax_elemens);
-    //Toe
-    var toastElement = document.querySelector(".toast");
-    var toastInstance = M.Toast.getInstance(toastElement);
-    toastInstance.dismiss();
+    // 
+    var elemsB = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elemsB);
+    //Toast
+    // var toastElement = document.querySelector(".toast");
+    // var toastInstance = M.Toast.getInstance(toastElement);
+    // toastInstance.dismiss();
 });

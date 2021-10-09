@@ -1,5 +1,5 @@
 <?php
-
+// Es archivo que encarga de dar un tratamiento  los datos que recibe
 function limpiar($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
 
@@ -27,5 +27,5 @@ function limpiar($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue
     }
     return $theValue;
 }
-
+//Esta una ruta absoluta para puedan localizar los datos
 define('url', 'http://localhost/sistema-usuarios/');

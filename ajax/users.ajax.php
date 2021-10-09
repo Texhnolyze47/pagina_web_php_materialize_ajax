@@ -1,11 +1,19 @@
 <?php
+// Este archivo se encarga de validar la informacion 
+// que recibe del form y al comprobar que todo esta correcto 
+// lo envia a la base de datos
+
 //incluimos la conexion a la base de datos.
 require_once '../db_conexion.php';
+
+// 
+// Registro
+
 
 if (isset($_POST['user_name']) && isset($_POST['email'])) {
 
     if ($_POST['email'] !== '' && $_POST['user_name']  !== '' && $_POST['password'] !== '') {
-        //comproba si las caracteres utilizados en email, username o passowrd no son validos
+        //comproba si las caracteres utilizados en email, username o password no son validos
         if (!preg_match('/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/', $_POST['email'])) {
             echo  'email_invalido';
             exit();
@@ -52,7 +60,7 @@ if (isset($_POST['user_name']) && isset($_POST['email'])) {
                 if ($stmt->execute()) {
                     //envio de email confirmacion
                     $para = $email;
-                    $titulo = "Verifique su correo eletronico";
+                    $titulo = "Verifique su correo electronico";
                     $mensaje = "Utilice este enlace" . url . "verificar/" . $token . "Para verficar su cuenta";
 
 
@@ -132,6 +140,50 @@ if (isset($_POST['fr_login']) & isset($_POST['user_name']) && isset($_POST['pass
         mysqli_free_result($result);
 
 
+    } else {
+        echo 'campos_vacios';
+    }
+}
+
+
+// 
+// Validando datos actualizar de perfil
+// 
+
+// si el usuario, email y descripcion existen se ejecutara el if
+if (isset($_POST['up_username']) && isset($_POST['up_email']) && isset($_POST['description'])) {
+    //si alguno de los campos estan vacios se enviara el echo campos_vacios
+    if ($_POST['up_username']  !== '' && $_POST['up_email'] !== '' && $_POST['description']  !==  '') {
+        //esto valida a los diferentes campos en caso que tenga algun carácter invalido se enviara el echo dentro del bloque 
+        if (!preg_match('/^[a-zA-Z0-9\\@\\.\\_]+$/', $_POST['up_username'])) {
+            echo  'user_name_invalido';
+            exit();
+        }else if (!preg_match('/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/', $_POST['up_email'])) {
+            echo 'email_invalido';
+            exit();
+            //cuidado con los espacios en las expresiones regulares
+        }else if (!preg_match('/^[,\\@\\?\\$\\.\\!\\¡\\"\\#a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['description'])) {
+            echo 'description_invalido';
+            exit();
+        }
+        $iduser =  base64_decode($_POST['iduser']);
+        $user = $_POST['up_username'];
+        $email = $_POST['up_email'];
+        $description = $_POST['description'];
+
+        $stmt = $conn->prepare("UPDATE users SET user_name = ?, email = ?, description = ? WHERE id = ? ");
+
+        /* ligar parámetros para marcadores */
+        $stmt->bind_param("sssi", $user , $email, $description, $iduser);
+
+        if($stmt->execute()){
+            echo 'ok';
+        }else {
+            echo 'error';
+        }
+       
+        $stmt -> close();
+        
     } else {
         echo 'campos_vacios';
     }

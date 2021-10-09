@@ -53,7 +53,7 @@ include('footer.php');
 //este bloque indica que solo se mostrara esta pagina si el usuario tiene su url correspondiente
 $stmt->close();
 
-header('Locatin' . url);
+header('Location' . url);
 exit();
 
 

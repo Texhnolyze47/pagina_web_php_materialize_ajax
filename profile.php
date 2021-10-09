@@ -18,9 +18,9 @@ $fech = mysqli_fetch_assoc($result);
         <div class="parallax">
             <?php
             if ($fech['banner'] == '') : ?>
-                <img src="images/hero.jpg" >
+                <img src="images/hero.jpg">
             <?php else : ?>
-                <img src="<?php echo url . 'images/banners/' . $fech['banner']; ?> width="100" class="circle responsive-img">
+                <img src="<?php echo url . 'images/banners/' . $fech['banner']; ?> width=" 100" class="circle responsive-img">
             <?php endif ?>
         </div>
 
@@ -154,6 +154,79 @@ $fech = mysqli_fetch_assoc($result);
         </div>
     </div>
 </main>
+
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+
+        <li><a class="btn-floating green modal-trigger" href="#newPost"><i class="material-icons">create</i></a></li>
+        <li><a class="btn-floating blue modal-trigger " href="#editDates"><i class="material-icons">person</i></a></li>
+    </ul>
+</div>
+
+<!-- modal edit user -->
+
+<!-- Modal Structure -->
+<div id="editDates" class="modal">
+    <div class="modal-content">
+        <div class="center">
+            <h4>Editando datos de perfil</h4>
+
+            <form onsubmit="return false" class="editUser">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input type="text" id="up_username" value="<?php echo $fech ['user_name']; ?>" class="validate">
+                        <label for="up_username">Usuario</label>
+                    </div>
+                    <!--End col -->
+
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">email</i>
+                        <input type="email" id="up_email"  value="<?php echo $fech ['email']; ?>" class="validate">
+                        <label for="up_email">Email</label>
+                    </div>
+                    <!--End col -->
+
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="description" class="materialize-textarea"><?php echo $fech ['description']; ?></textarea>
+                        <label for="description">Descripcion</label>
+                    </div>
+                    <!--End col -->
+                    <!-- se encripta el id -->
+                    <input type="hidden" id="iduser" value="<?php echo base64_encode($fech['id']); ?>">
+                    <div class="col s12">
+                        <div class="center">
+                            <button type="submit" class="waves-effect waves-light  btn grey" onclick="update_user();">
+                                Actualizar datos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Modal Structure -->
+<div id="newPost" class="modal">
+    <div class="modal-content">
+        <h4>Agregando post</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+
 <<?php
     include('footer.php');
     mysqli_free_result($result);
