@@ -184,6 +184,15 @@ main.user-profile articles-post-user-profile {
     border: 5px solid var(--white);
     border-radius: 50px;
 }
+a.btn-banner{
+    position: absolute;
+    right: 30px;
+    /*font-size: 20px;*/
+    bottom: 20px;
+}
+a.btn-banner span {
+    font-size: 35px;
+}
 /*========================
 Footer
 =========================*/

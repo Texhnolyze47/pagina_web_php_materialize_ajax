@@ -206,12 +206,39 @@ function update_user() {
      processData: false,
      success: function (response) {
       M.toast({ html: "Foto actualizada" });
-       $('#frmPicture')[0].reset();
-       $('refreshp').attr('src', response);
+      //  $('#frmPicture')[0].reset();
+      //  $('refreshp').attr('src', response);
+      location.reload();
+
      }
    });
  
 }
+
+/**
+ *  subiendo banner de perfil
+ * */
+
+function upload_banner() {
+  //en esta funcion se va agregar jquery
+  var frmBanner = new FormData ($('#frmBanner')[0])
+  $.ajax({
+    type: "POST",
+    url: "ajax/users.ajax.php",
+    data: frmBanner,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+     M.toast({ html: "Banner actualizado" });
+      // $('#frmBanner')[0].reset();
+      // $('.refresB').attr('src', response);
+      location.reload();
+
+    }
+  });
+
+}
+
 
 
 /**

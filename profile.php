@@ -1,6 +1,6 @@
 <?php include('header.php');
-if (!isset($_SESSION['id']) && !isset($_SESSION['username']) ) {
-    header('Location:'.url);
+if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
+    header('Location:' . url);
     exit();
 }
 
@@ -18,36 +18,47 @@ $fech = mysqli_fetch_assoc($result);
 	======================================-->
 
 <main role="main" class="user-profile">
-    <div class="parallax-container profile">
+    <div class="parallax-container profile" >
         <div class="parallax">
             <?php
             if ($fech['banner'] == '') : ?>
-                <img src="images/hero.jpg">
+                <img src="images/hero-banner.jpg" class="refresB">
             <?php else : ?>
-                <img src="<?php echo url . 'images/banners/' . $fech['banner']; ?> width=" 100" class="circle responsive-img">
+                <img src="<?php echo url . 'images/banners/' . $fech['banner']; ?>" class="refresB">
             <?php endif ?>
         </div>
 
         <div class="content-parallax center">
-            <a href="javascript:void(0)" onclick="$('#upPicture').click();" >
-            <figure>
-                <?php
-                if ($fech['picture'] == '') : ?>
-                    <img src="images/default_avatar.png" width="100" class="circle responsive-img" id="refreshp">
-                <?php else : ?>
-                    <img src="<?php echo url . 'images/users/' . $fech['picture']; ?>" width="100" class="circle responsive-img" id="refreshp">
-                <?php endif ?>
-            </figure>
-        </a>
+            <a href="javascript:void(0)" onclick="$('#upPicture').click();">
+                <figure>
+                    <?php
+                    if ($fech['picture'] == '') : ?>
+                        <img src="images/default_avatar.png" width="100" class="circle" id="refreshp">
+                    <?php else : ?>
+                        <img src="<?php echo url . 'images/users/' . $fech['picture']; ?>" width="100" class="circle" id="refreshp">
+                    <?php endif ?>
+                </figure>
+            </a>
+            <!-- formulario para cambiar la foto de perfil -->
+            <form onsubmit="return false" id="frmPicture" style="display: none;">
+                <input type="file" id="upPicture" name="upPicture" onchange="upload_picture();">
+                <input type="hidden" name="userid" value="<?php echo base64_encode($fech['id']); ?>">
+            </form>
 
-        <form onsubmit="return false"  id="frmPicture" style="display: none;">
-            <input type="file" id="upPicture" name="upPicture" onchange="upload_picture()">
-            <input type="hidden" name="userid" value="<?php echo base64_encode($fech['id']); ?>">
-    </form>
-           
             <h2 class="name-user">
                 <?php echo $fech['user_name']; ?>
             </h2>
+            <!-- fonrmulario para cambiar el banner del perfil -->
+            <a href="javascript:void(0)" class="btn-banner" onclick="$('#upBanner').click();">
+                <span class="material-icons white-text">image</span>
+            </a>
+
+            <form onsubmit="return false" id="frmBanner" style="display: none;">
+                <input type="file" id="upBanner" name="upBanner" onchange="upload_banner();">
+                <input type="hidden" name="userid" value="<?php echo base64_encode($fech['id']); ?>">
+            </form>
+
+
         </div>
     </div>
     <!--End of parallax-->
@@ -191,21 +202,21 @@ $fech = mysqli_fetch_assoc($result);
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input type="text" id="up_username" readonly value="<?php echo $fech ['user_name']; ?>" class="validate">
+                        <input type="text" id="up_username" readonly value="<?php echo $fech['user_name']; ?>" class="validate">
                         <label for="up_username">Usuario</label>
                     </div>
                     <!--End col -->
 
                     <div class="input-field col s12">
                         <i class="material-icons prefix">email</i>
-                        <input type="email" id="up_email" readonly value="<?php echo $fech ['email']; ?>" class="validate">
+                        <input type="email" id="up_email" readonly value="<?php echo $fech['email']; ?>" class="validate">
                         <label for="up_email">Email</label>
                     </div>
                     <!--End col -->
 
                     <div class="input-field col s12">
                         <i class="material-icons prefix">mode_edit</i>
-                        <textarea id="description" class="materialize-textarea"><?php echo $fech ['description']; ?></textarea>
+                        <textarea id="description" class="materialize-textarea"><?php echo $fech['description']; ?></textarea>
                         <label for="description">Descripcion</label>
                     </div>
                     <!--End col -->

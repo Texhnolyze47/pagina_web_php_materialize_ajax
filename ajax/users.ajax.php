@@ -215,7 +215,7 @@ if(isset($_FILES['upPicture'])){
         $stmt->bind_param("si", $name_picture , $iduser);
 
         if($stmt->execute()){
-            echo "/images/users/".$name_picture;
+            echo "images/users/".$name_picture;
         }else {
             echo 'error';
         }
@@ -224,6 +224,45 @@ if(isset($_FILES['upPicture'])){
         
 
     }else {
-        echo 'file_aceptado';
+        echo 'file_rechazado';
+    }
+}
+
+// 
+// Subiendo banner de perfil
+// 
+// se pregunta si existe el archivo
+if(isset($_FILES['upBanner'])){
+        //  var_dump($_FILES['upBanner']);
+
+    //si cumple con las extensiones se ejecuta el cuerpo de la funcion
+    if ($_FILES['upBanner']['type'] == 'image/jpg' || $_FILES['upBanner']['type'] == 'image/png' || $_FILES['upBanner']['type'] == 'image/jpeg'){
+
+        // descriptar el id del user
+        $iduser = trim(base64_decode($_POST['userid']));
+
+        $extent = explode('/', $_FILES['upBanner']['type']);
+
+        //se crea el nombre de la imagen
+        $name_banner = base64_decode($_POST['userid']).".".$extent[1];
+        //se mueve la imagen al directorio
+        move_uploaded_file($_FILES['upBanner']['tmp_name'], '../images/banners/' .$name_banner);
+
+        //consulta al servidor
+        $stmt = $conn->prepare("UPDATE users SET banner = ? WHERE id = ? ");
+        
+        $stmt->bind_param("si", $name_banner , $iduser);
+
+        if($stmt->execute()){
+            echo "images/banners/".$name_banner;
+        }else {
+            echo 'error';
+        }
+       
+        $stmt -> close();
+        
+
+    }else {
+        echo 'file_rechazado';
     }
 }
