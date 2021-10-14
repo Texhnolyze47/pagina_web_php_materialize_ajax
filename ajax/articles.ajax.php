@@ -36,7 +36,8 @@ if (isset($_POST['title']) && isset($_POST['description'])) {
         $author = base64_decode($_POST['userid']);
         $title = $_POST['title'];
         $description = $_POST['description'];
-        $files = '';
+        //esto va volver al titulo en una url amigable
+        $url = limpiar_url($title);
         $visitors = 0;
         $comments = 0;
         //insertando datos
@@ -44,10 +45,10 @@ if (isset($_POST['title']) && isset($_POST['description'])) {
         //consulta al servidor
 
         //prepara una nueva insercion al sql
-        $stmt = $conn->prepare("INSERT INTO article (title, description, images, files , author, visitors , comments) VALUES(?,?,?,?,?,?,?)");
+        $stmt = $conn->prepare("INSERT INTO article (title, description, images, url , author, visitors , comments) VALUES(?,?,?,?,?,?,?)");
 
         /* ligar parámetros para marcadores */
-        $stmt->bind_param("sssssss", $title, $description, $name_file, $files, $author,  $visitors, $comments);
+        $stmt->bind_param("sssssss", $title, $description, $name_file, $url, $author,  $visitors, $comments);
 
 
         if ($stmt->execute()) {
