@@ -18,7 +18,7 @@ $fech = mysqli_fetch_assoc($result);
 	======================================-->
 
 <main role="main" class="user-profile">
-    <div class="parallax-container profile" >
+    <div class="parallax-container profile">
         <div class="parallax">
             <?php
             if ($fech['banner'] == '') : ?>
@@ -241,11 +241,52 @@ $fech = mysqli_fetch_assoc($result);
 <!-- Modal Structure -->
 <div id="newPost" class="modal">
     <div class="modal-content">
-        <h4>Agregando post</h4>
-        <p>A bunch of text</p>
+        <div class="center">
+            <h4>Agregando un nuevo articulo</h4>
+
+            <form onsubmit="return false" id="newArticle">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <input type="text" name="title" id="title" class="validate">
+                        <label for="title">Titulo</label>
+                    </div>
+                    <!--End col -->
+
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="description" name="description" class="materialize-textarea"></textarea>
+                        <label for="description">Descripcion</label>
+                    </div>
+                    <!--End col -->
+                    <div class="col s12">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span>File</span>
+                                <input type="file" name="images_file" id="images_file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- se encripta el id -->
+                    <input type="hidden" id="userid" value="<?php echo base64_encode($fech['id']); ?>">
+                    <div class="col s12">
+                        <div class="center">
+                            <button type="submit" class="waves-effect waves-light  btn grey" onclick="add_post();">
+                                Publicar articulo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+
     </div>
 </div>
 

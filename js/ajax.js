@@ -239,6 +239,60 @@ function upload_banner() {
 
 }
 
+/**
+ *  validacion formulario de articulo
+ * */
+
+ function add_post() {
+  //se extraen los datos del php y se guardan en variables
+
+  var title = document.querySelector("#title").value;
+  var description = document.querySelector("#description").value;
+
+
+  //expresion regulares para los campos del formulario
+
+  exp = /^[,\\@\\?\\$\\.\\!\\¡\\"\\#a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/;
+  
+
+  //comprobaciones de que se  introdujeron los datos de forma correcta
+
+  if (title == "") {
+    M.toast({ html: "El campo titulo no puede estar vacio" });
+
+    return;
+  } else if (!exp.exec(title)) {
+    M.toast({
+      html: "En el campo de titulo, no se permiten algunos caracteres especiales",
+    });
+    return;
+  }
+
+  if (description == "") {
+    M.toast({ html: "El campo descripcion no puede estar vacio" });
+    return;
+  } else if (!exp.exec(description)) {
+    M.toast({ html: "En el campo de descripcion, no se permiten algunos caracteres especiales" });
+    return;
+  }
+
+  var formD = new FormData ($('#newArticle')[0])
+  $.ajax({
+    type: "POST",
+    url: "ajax/articles.ajax.php",
+    data: formD,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      if (response == 'ok') {
+        M.toast({ html: "Articulo agregado correctamnte" });
+        $('#newArticle')[0].reset();
+  
+      }
+    }
+  });
+ 
+}
 
 
 /**
