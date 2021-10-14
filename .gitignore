@@ -48,10 +48,10 @@ Thumbs.db
 *.mov
 *.wmv
 
-/images/banners/*.png
-/images/banners/*.jpeg
-/images/banners/*.jpg
+/images/banners/*
 
-/images/users/*.png
-/images/users/*.jpeg
-/images/users/*.jpg
+
+/images/users/*
+
+/images/articles/*
+

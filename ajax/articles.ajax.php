@@ -1,4 +1,6 @@
 <?php
+require_once '../db_conexion.php';
+
 
 //
 //publicando articulo
@@ -6,8 +8,8 @@
 
 if (isset($_POST['title']) && isset($_POST['description'])) {
 
-    if(!empty($_POST['title']) && !empty($_POST['description'])) {
-        
+    if (!empty($_POST['title']) && !empty($_POST['description'])) {
+
         if (!preg_match('/^[,\\@\\?\\$\\.\\!\\¡\\"\\#a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['title'])) {
             echo 'title_invalido';
             exit();
@@ -16,33 +18,44 @@ if (isset($_POST['title']) && isset($_POST['description'])) {
             exit();
         }
 
+        //Validando imagen
         $name_file = '';
 
-        if ($_FILES['upPicture']['type'] == 'image/jpg' || $_FILES['upPicture']['type'] == 'image/png' || $_FILES['upPicture']['type'] == 'image/jpeg'){
+        if ($_FILES['images_file']['type'] == 'image/jpg' || $_FILES['images_file']['type'] == 'image/png' || $_FILES['images_file']['type'] == 'image/jpeg') {
 
-            //  var_dump($_FILES['upPicture']);
-    
+            //  var_dump($_FILES['images_file']);
+
             $iduser = trim(base64_decode($_POST['userid']));
-            $extent = explode("/", $_FILES['upPicture']['type']);
+            $extent = explode('/', $_FILES['images_file']['type']);
             //  echo '<pre>'; print_r($extent); echo '</pre>';
-    
-            $name = explode("/", $_FILES['upPicture']['name']);
-            //  echo '<pre>'; print_r($name); echo '</pre>';
-    
-            $name_picture = base64_decode($_POST['userid']).substr(time(),3).".".$extent[1];
-    
-            move_uploaded_file($_FILES['upPicture']['tmp_name'], '../images/users/' .$name_picture);
-    
- 
-        }else {
-            echo 'file_rechazado';
+            $name_file = time().'-'.$_FILES['images_file']['name'];
+
+            move_uploaded_file($_FILES['images_file']['tmp_name'], '../images/articles/' . $name_file);
         }
 
-    }else {
+        $author = base64_decode($_POST['userid']);
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $files = '';
+        $visitors = 0;
+        $comments = 0;
+        //insertando datos
+
+        //consulta al servidor
+
+        //prepara una nueva insercion al sql
+        $stmt = $conn->prepare("INSERT INTO article (title, description, images, files , author, visitors , comments) VALUES(?,?,?,?,?,?,?)");
+
+        /* ligar parámetros para marcadores */
+        $stmt->bind_param("sssssss", $title, $description, $name_file, $files, $author,  $visitors, $comments);
+
+
+        if ($stmt->execute()) {
+            echo 'ok';
+        } else {
+            echo 'error';
+        }
+    } else {
         echo 'campos_vacios';
     }
-
- 
-
-
 }

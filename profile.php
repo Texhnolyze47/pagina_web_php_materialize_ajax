@@ -273,7 +273,7 @@ $fech = mysqli_fetch_assoc($result);
 
 
                     <!-- se encripta el id -->
-                    <input type="hidden" id="userid" value="<?php echo base64_encode($fech['id']); ?>">
+                    <input type="hidden" id="userid" name="userid" value="<?php echo base64_encode($fech['id']); ?>">
                     <div class="col s12">
                         <div class="center">
                             <button type="submit" class="waves-effect waves-light  btn grey" onclick="add_post();">
