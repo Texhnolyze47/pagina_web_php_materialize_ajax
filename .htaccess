@@ -15,6 +15,7 @@ ErrorDocument 500 /error
  RewriteRule ^articulos articles.php
  RewriteRule ^perfil profile.php
  RewriteRule ^salir salir.php
+ RewriteRule ^articulos articles.php
 
  RewriteRule ^verificar/(.+) verificar.php?verificar=$1
 

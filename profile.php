@@ -73,7 +73,7 @@ $fech = mysqli_fetch_assoc($result);
         </article>
 
         <div class="articles-post-user-profile">
-            <div class="row">
+              <div class="row">
                 <div class="col s12 m4 ">
                     <div class="card">
                         <div class="card-image scalar">
@@ -173,7 +173,7 @@ $fech = mysqli_fetch_assoc($result);
                         </div>
                     </div><!-- End card-->
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
 </main>

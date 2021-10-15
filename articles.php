@@ -1,4 +1,9 @@
 <?php include('header.php');
+// este es el numero maximo de articulos que se van a mostrar
+$item = 6;
+
+$items = all_articules($item);
+
 ?>
 <!--=====================================
 	profile
@@ -9,205 +14,55 @@
 
         <div class="articles-post-user-profile">
             <div class="row">
-                <div class="col s12 m4 ">
-                    <div class="card">
-                        <div class="card-image scalar">
-                            <a href="#!">
-                                <img src="images/hero.jpg">
-                            </a>
-
-                        </div>
-                        <div class="card-content">
-                            <div class="author right">
+                <?php foreach ($items as $key => $value) : ?>
+                    <div class="col s12 m4 ">
+                        <div class="card">
+                            <div class="card-image scalar">
                                 <a href="#!">
-                                    <img src="images/persona.jpg" width="60" class="circle responsive-img ">
-                                </a>
-                            </div><!-- End author-->
+                                    <?php
+                                    if ($value['images'] != '') : ?>
+                                        <img src="<?php echo url . 'images/articles/' . $value['images']; ?>" >
 
-                            <a href="#!">
-                                <span class="card-title">Nuevo articulo</span>
-                            </a>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
+                                    <?php else : ?>
+                                        <img src="images/hero.jpg">
+                                    <?php endif ?>
 
-                            <div class="card-footer">
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Comentarios: 200">
-                                    <i class="material-icons">comment</i>
                                 </a>
 
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Visitas: 1500">
-                                    <i class="material-icons">group</i>
-                                </a>
                             </div>
-                        </div>
-                    </div><!-- End card-->
-                </div>
-                <div class="col s12 m4 ">
-                    <div class="card">
-                        <div class="card-image scalar">
-                            <a href="#!">
-                                <img src="images/hero.jpg">
-                            </a>
+                            <div class="card-content">
+                                <div class="author right">
+                                    <a href="#!">
+                                    <?php
+                                    if ($value['picture'] != '') : ?>
+                                        <img src="<?php echo url . 'images/users/' . $value['picture']; ?>" >
 
-                        </div>
-                        <div class="card-content">
-                            <div class="author right">
+                                    <?php else : ?>
+                                        <img src="images/persona.jpg" width="60" class="circle" >
+                                    <?php endif ?>
+                                    </a>
+                                </div><!-- End author-->
+
                                 <a href="#!">
-                                    <img src="images/persona.jpg" width="60" class="circle responsive-img ">
+                                    <span class="card-title"><?php echo $value['title']; ?></span>
                                 </a>
-                            </div><!-- End author-->
+                                <p><?php echo $value['description']; ?>
+                                <div class="card-footer">
+                                    <a href="#!" class="tooltipped" data-position="top" data-tooltip="Comentarios: <?php echo $value['comments']; ?>">
+                                        <i class="material-icons">comment</i>
+                                    </a>
 
-                            <a href="#!">
-                                <span class="card-title">Nuevo articulo</span>
-                            </a>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
-
-                            <div class="card-footer">
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Comentarios: 200">
-                                    <i class="material-icons">comment</i>
-                                </a>
-
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Visitas: 1500">
-                                    <i class="material-icons">group</i>
-                                </a>
+                                    <a href="#!" class="tooltipped" data-position="top" data-tooltip="Visitas: <?php echo $value['visitors']; ?>">
+                                        <i class="material-icons">group</i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </div><!-- End card-->
-                </div>
-                <div class="col s12 m4 ">
-                    <div class="card">
-                        <div class="card-image scalar">
-                            <a href="#!">
-                                <img src="images/hero.jpg">
-                            </a>
+                        </div><!-- End card-->
+                    </div>
 
-                        </div>
-                        <div class="card-content">
-                            <div class="author right">
-                                <a href="#!">
-                                    <img src="images/persona.jpg" width="60" class="circle responsive-img ">
-                                </a>
-                            </div><!-- End author-->
+                <?php endforeach; ?>
 
-                            <a href="#!">
-                                <span class="card-title">Nuevo articulo</span>
-                            </a>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
 
-                            <div class="card-footer">
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Comentarios: 200">
-                                    <i class="material-icons">comment</i>
-                                </a>
-
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Visitas: 1500">
-                                    <i class="material-icons">group</i>
-                                </a>
-                            </div>
-                        </div>
-                    </div><!-- End card-->
-                </div>
-
-                <div class="col s12 m4 ">
-                    <div class="card">
-                        <div class="card-image scalar">
-                            <a href="#!">
-                                <img src="images/hero.jpg">
-                            </a>
-
-                        </div>
-                        <div class="card-content">
-                            <div class="author right">
-                                <a href="#!">
-                                    <img src="images/persona.jpg" width="60" class="circle responsive-img ">
-                                </a>
-                            </div><!-- End author-->
-
-                            <a href="#!">
-                                <span class="card-title">Nuevo articulo</span>
-                            </a>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
-
-                            <div class="card-footer">
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Comentarios: 200">
-                                    <i class="material-icons">comment</i>
-                                </a>
-
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Visitas: 1500">
-                                    <i class="material-icons">group</i>
-                                </a>
-                            </div>
-                        </div>
-                    </div><!-- End card-->
-                </div>
-                <div class="col s12 m4 ">
-                    <div class="card">
-                        <div class="card-image scalar">
-                            <a href="#!">
-                                <img src="images/hero.jpg">
-                            </a>
-
-                        </div>
-                        <div class="card-content">
-                            <div class="author right">
-                                <a href="#!">
-                                    <img src="images/persona.jpg" width="60" class="circle responsive-img ">
-                                </a>
-                            </div><!-- End author-->
-
-                            <a href="#!">
-                                <span class="card-title">Nuevo articulo</span>
-                            </a>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
-
-                            <div class="card-footer">
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Comentarios: 200">
-                                    <i class="material-icons">comment</i>
-                                </a>
-
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Visitas: 1500">
-                                    <i class="material-icons">group</i>
-                                </a>
-                            </div>
-                        </div>
-                    </div><!-- End card-->
-                </div>
-                <div class="col s12 m4 ">
-                    <div class="card">
-                        <div class="card-image scalar">
-                            <a href="#!">
-                                <img src="images/hero.jpg">
-                            </a>
-
-                        </div>
-                        <div class="card-content">
-                            <div class="author right">
-                                <a href="#!">
-                                    <img src="images/persona.jpg" width="60" class="circle responsive-img ">
-                                </a>
-                            </div><!-- End author-->
-
-                            <a href="#!">
-                                <span class="card-title">Nuevo articulo</span>
-                            </a>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
-
-                            <div class="card-footer">
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Comentarios: 200">
-                                    <i class="material-icons">comment</i>
-                                </a>
-
-                                <a href="#!" class="tooltipped" data-position="top" data-tooltip="Visitas: 1500">
-                                    <i class="material-icons">group</i>
-                                </a>
-                            </div>
-                        </div>
-                    </div><!-- End card-->
-                </div>
             </div>
             <!--End row-->
             <div class="center">
