@@ -114,8 +114,8 @@ function update_user() {
   //se extraen los datos del php y se guardan en variables
   var up_username = document.querySelector("#up_username").value;
   var up_email = document.querySelector("#up_email").value;
-  var description = document.querySelector("#description").value; 
-  var iduser = document.querySelector("#iduser").value; 
+  var description = document.querySelector("#description").value;
+  var iduser = document.querySelector("#iduser").value;
 
   //expresion regulares para los campos del formulario
   email_expresion = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
@@ -188,31 +188,30 @@ function update_user() {
       up_email +
       "& description=" +
       description +
-      "& iduser=" + iduser
+      "& iduser=" +
+      iduser
   );
 }
 
 /**
  *  subiendo imagen de perfil
  * */
- function upload_picture() {
-   //en esta funcion se va agregar jquery
-   var frmP = new FormData ($('#frmPicture')[0])
-   $.ajax({
-     type: "POST",
-     url: "ajax/users.ajax.php",
-     data: frmP,
-     contentType: false,
-     processData: false,
-     success: function (response) {
+function upload_picture() {
+  //en esta funcion se va agregar jquery
+  var frmP = new FormData($("#frmPicture")[0]);
+  $.ajax({
+    type: "POST",
+    url: "ajax/users.ajax.php",
+    data: frmP,
+    contentType: false,
+    processData: false,
+    success: function (response) {
       M.toast({ html: "Foto actualizada" });
       //  $('#frmPicture')[0].reset();
       //  $('refreshp').attr('src', response);
       location.reload();
-
-     }
-   });
- 
+    },
+  });
 }
 
 /**
@@ -221,7 +220,7 @@ function update_user() {
 
 function upload_banner() {
   //en esta funcion se va agregar jquery
-  var frmBanner = new FormData ($('#frmBanner')[0])
+  var frmBanner = new FormData($("#frmBanner")[0]);
   $.ajax({
     type: "POST",
     url: "ajax/users.ajax.php",
@@ -229,31 +228,120 @@ function upload_banner() {
     contentType: false,
     processData: false,
     success: function (response) {
-     M.toast({ html: "Banner actualizado" });
+      M.toast({ html: "Banner actualizado" });
       // $('#frmBanner')[0].reset();
       // $('.refresB').attr('src', response);
       location.reload();
-
-    }
+    },
   });
-
 }
+
+/**
+ *  Paginacion
+ * */
+$(".show_cascade").on("click", function () {
+  let value = $(".paginate").attr("cargar");
+  $.ajax({
+    url: "ajax/articles.ajax.php",
+    type: "POST",
+    data: "cascade_page=" + value,
+    cache: false,
+    processData: false,
+    dataType: "json",
+    beforeSend: function(){
+      //muestra la barra de carga
+      $('.progress_paginate').show();
+    },
+    success: function (data) {
+      if (data["error"] == "error") {
+        $('.progress_paginate').fadeOut(600);
+        $('.show_cascade').fadeOut(600);
+        M.toast({ html: "No se encontraron mas articulos" });
+
+      } else {
+        $('.progress_paginate').slideUp(600);
+
+        data.forEach(funcionForEach);
+        function funcionForEach(item, index) {
+          console.log("item", item);
+          //variables del contenido del articulo
+          var titulo = item[1].substr(0,120),
+          description = item[2],
+          imagen =  item[3],
+          ruta = item[4],
+          visitas = item[6],
+          comentarios = [7],
+          picture = item[14],
+          usuario = item[10];
+
+          if (picture != '') {
+            var picture = url + "images/users/" + item[14]
+          }else{
+            var picture = url + "images/persona.jpg";
+          }
+
+          if (imagen != '') {
+            var image = url + "images/articles/" + item[3]
+          }else{
+            var image = url + "images/hero.jpg";
+          }
+          $("#cascade_articles .row")
+            .append(
+              `                    
+                  <div class="col s12 m4 ">
+                <div class="card">
+                    <div class="card-image scalar">
+                        <a href="${ruta}">
+                       
+                                <img src="${image}" >
+                           
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <div class="author right">
+                            <a href="#!">
+                                <img src="${picture}" width="60"  class="circle">
+
+                            </a>
+                        </div><!-- End author-->
+
+                        <a href="#!">
+                            <span class="card-title">${titulo}</span>
+                        </a>
+                        <!--  substr hace que se extraiga un porcion del texto-->
+                        <p>${description}</p>
+                        <div class="card-footer">
+                            <a href="#!" class="tooltipped" data-position="top" data-tooltip="Comentarios: ${comentarios}">
+                                <i class="material-icons">comment</i>
+                            </a>
+
+                            <a href="#!" class="tooltipped" data-position="top" data-tooltip="Visitas: ${visitas}">
+                                <i class="material-icons">group</i>
+                            </a>
+                        </div>
+                    </div>
+                </div><!-- End card-->
+            </div>`
+            );
+        }
+      }
+    },
+  });
+});
 
 /**
  *  validacion formulario de articulo
  * */
 
- function add_post() {
+function add_post() {
   //se extraen los datos del php y se guardan en variables
 
   var title = document.querySelector("#title").value;
   var description = document.querySelector("#description").value;
 
-
   //expresion regulares para los campos del formulario
 
   exp = /^[,\\@\\?\\$\\.\\!\\¡\\"\\#a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/;
-  
 
   //comprobaciones de que se  introdujeron los datos de forma correcta
 
@@ -272,11 +360,13 @@ function upload_banner() {
     M.toast({ html: "El campo descripcion no puede estar vacio" });
     return;
   } else if (!exp.exec(description)) {
-    M.toast({ html: "En el campo de descripcion, no se permiten algunos caracteres especiales" });
+    M.toast({
+      html: "En el campo de descripcion, no se permiten algunos caracteres especiales",
+    });
     return;
   }
 
-  var formD = new FormData ($('#newArticle')[0])
+  var formD = new FormData($("#newArticle")[0]);
   $.ajax({
     type: "POST",
     url: "ajax/articles.ajax.php",
@@ -284,22 +374,19 @@ function upload_banner() {
     contentType: false,
     processData: false,
     success: function (response) {
-      if (response == 'ok') {
+      if (response == "ok") {
         M.toast({ html: "Articulo agregado correctamnte" });
-        $('#newArticle')[0].reset();
-  
+        $("#newArticle")[0].reset();
       }
-    }
+    },
   });
- 
 }
-
 
 /**
  *  validacion formulario de login
  * */
 // Esta otro forma usar el evento click
-document.querySelector(".login_ajax").addEventListener("click", function () {
+$(".login_ajax").on("click", function () {
   //se extraen los datos del php y se guardan en variables
   var lg_username = document.querySelector("#lg_username").value;
   var lg_password = document.querySelector("#lg_password").value;

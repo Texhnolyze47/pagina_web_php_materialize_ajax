@@ -7,7 +7,7 @@
 </footer>
 
 
-
+<input type="hidden" class="urlw" value="<?php url;?>">
 <div class="scrolltop scrolltop-dark"></div>
 <script src="<?php echo url; ?>js/app.js"></script>
 <script src="<?php echo url; ?>js/ajax.js"></script>

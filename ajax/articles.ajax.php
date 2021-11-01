@@ -60,3 +60,26 @@ if (isset($_POST['title']) && isset($_POST['description'])) {
         echo 'campos_vacios';
     }
 }
+
+//
+//paginacion
+//
+
+if (isset($_POST['cascade_page'])) {
+    $_SESSION['page'] += 6;
+    $indice = $_SESSION['page'];
+
+    $select = "SELECT * FROM article JOIN users ON users.id = article.author ORDER BY article.id DESC LIMIT $indice, 6";
+
+    $consult =mysqli_query($conn, $select);
+    $res_consult = mysqli_fetch_all($consult);
+    $count_articles = mysqli_num_rows($consult);
+
+    if ($count_articles != 0) {
+        echo json_encode($res_consult);
+    }else {
+        $error = array('error' => 'error');
+        echo  json_encode ($error);
+    }
+    mysqli_free_result($consult);
+}

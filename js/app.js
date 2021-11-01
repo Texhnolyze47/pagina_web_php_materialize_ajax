@@ -32,3 +32,5 @@ document.addEventListener("DOMContentLoaded", function () {
     // var toastInstance = M.Toast.getInstance(toastElement);
     // toastInstance.dismiss();
 });
+
+let url = $('.urlw').val();

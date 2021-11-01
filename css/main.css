@@ -34,7 +34,7 @@ Scalar las imagenes en Cards
 
 .scalar a img {
     max-width: 100%;
-    -webkit-transition: all 0.5s ease;
+    -webkit-transition: all .5s ease;
 }
 
 .scalar:hover a img {
@@ -52,7 +52,7 @@ Hero
 =========================*/
 
 section.section-hero {
-    margin-top: -40px;
+    margin-top: -50px;
 }
 div.hero {
     background: url("../images/hero.jpg");
@@ -143,7 +143,7 @@ main.user-profile article figcaption {
     font-size: 16px;
 }
 
-main.user-profile articles-post-user-profile {
+main.user-profile .articles-post-user-profile {
     padding: 50px 0;
 }
 .card .card-content a span {
@@ -151,7 +151,7 @@ main.user-profile articles-post-user-profile {
     font-size: 25px;
     color: #212121;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
 }
 
 .card .card-content a span:hover {

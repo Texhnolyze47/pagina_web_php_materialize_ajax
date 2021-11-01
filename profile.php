@@ -36,7 +36,7 @@ $fech = mysqli_fetch_assoc($result);
                         <img src="images/default_avatar.png" width="100" class="circle" id="refreshp">
                     <?php else : ?>
                         <img src="<?php echo url . 'images/users/' . $fech['picture']; ?>" width="100" class="circle" id="refreshp">
-                    <?php endif ?>
+                    <?php endif; ?>
                 </figure>
             </a>
             <!-- formulario para cambiar la foto de perfil -->
