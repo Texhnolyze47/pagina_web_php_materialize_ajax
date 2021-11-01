@@ -324,6 +324,7 @@ $(".show_cascade").on("click", function () {
             </div>`
             );
         }
+        $(".tooltipped").tooltip();
       }
     },
   });
