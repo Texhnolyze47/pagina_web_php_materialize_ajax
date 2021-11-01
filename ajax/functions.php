@@ -60,10 +60,26 @@ function all_articules($limit){
     //con global podemos llamar  a la base de datos dentro de una funcion
     global$conn;
     // join es una forma de unir las dos tablas
-    $stmt = $conn->prepare("SELECT * FROM article JOIN users ON users.id = article.author ORDER BY article.id DESC LIMIT $limit"); 
+    $stmt = $conn->prepare("SELECT * FROM article JOIN users ON users.id = article.author ORDER BY article.id_article DESC LIMIT $limit"); 
     $stmt -> execute();
     // Va mostar todos los articulos dentro de la base de datos
     return $stmt -> get_result();
     $stmt -> close();
 }
 
+  /*=============================================
+Mostrat informacion del articulo
+=============================================*/
+function item_post($item){
+    global $conn;
+    
+    $select = sprintf("SELECT * FROM article JOIN users ON users.id = article.author WHERE url = %s",
+    limpiar($item, 'text')); 
+
+    
+    $consult =mysqli_query($conn, $select);
+    $res_consult = mysqli_fetch_assoc($consult);
+    return $res_consult;
+
+    mysqli_free_result($consult);
+}

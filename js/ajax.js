@@ -291,7 +291,7 @@ $(".show_cascade").on("click", function () {
                   <div class="col s12 m4 ">
                 <div class="card">
                     <div class="card-image scalar">
-                        <a href="${ruta}">
+                        <a href="#!" class="modal-trigger" data-target="open_modal" onclick="open_modal_item('${ruta}');">
                        
                                 <img src="${image}" >
                            
@@ -306,7 +306,7 @@ $(".show_cascade").on("click", function () {
                         </div><!-- End author-->
 
                         <a href="#!">
-                            <span class="card-title">${titulo}</span>
+                            <span class="card-title modal-trigger" data-target="open_modal" onclick="open_modal_item('${ruta}')">${titulo}</span>
                         </a>
                         <!--  substr hace que se extraiga un porcion del texto-->
                         <p>${description}</p>
@@ -454,3 +454,19 @@ $(".login_ajax").on("click", function () {
       fr_login
   );
 });
+
+
+/**
+ *  Mostrando informacion de articulos
+ * */
+
+function open_modal_item(value){
+  $.ajax({
+    type: "post",
+    url: url + "inc/item.php",
+    data: 'value=' + value,
+    success: function (response) {
+      $('.res_modal').html(response);
+    }
+  });
+}

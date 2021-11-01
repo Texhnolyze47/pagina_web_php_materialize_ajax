@@ -15,10 +15,11 @@ $items = all_articules($item);
     <div class="articles-post-user-profile" id="cascade_articles">
             <div class="row">
                 <?php foreach ($items as $key => $value): ?>
-                    <div class="col s12 m4 ">
+                    <div class="col s13 m4 ">
                         <div class="card">
                             <div class="card-image scalar">
-                                <a href="#!">
+                                <a href="#!" class="modal-trigger" data-target="open_modal" onclick="open_modal_item('<?php echo $value['url'];
+                                ?>')">
                                     <?php
                                     if ($value['images'] != '') : ?>
                                         <img src="<?php echo url . 'images/articles/' . $value['images']; ?>" >
@@ -41,10 +42,11 @@ $items = all_articules($item);
                                 </div><!-- End author-->
 
                                 <a href="#!">
-                                    <span class="card-title"><?php echo $value['title']; ?></span>
+                                    <span class="card-title modal-trigger" data-target="open_modal" onclick="open_modal_item('<?php echo $value['url'];
+                                ?>')" ><?php echo $value['title']; ?></span>
                                 </a>
                                 <!--  substr hace que se extraiga un porcion del texto-->
-                                <p><?php echo substr($value['description'],0,120); ?></p>
+                                <p><?php echo substr($value['description_a'],0,120); ?></p>
                                 <div class="card-footer">
                                     <a href="#!" class="tooltipped" data-position="top" data-tooltip="Comentarios: <?php echo $value['comments']; ?>">
                                         <i class="material-icons">comment</i>
@@ -76,6 +78,11 @@ $items = all_articules($item);
     </div><!-- End container-->
 </main>
 
+  <!-- Modal Structure -->
+  <div id="open_modal" class="modal">
+    <div class="modal-content res_modal">
+    </div>
+  </div>
 
 <?php include('footer.php');
 ?>
